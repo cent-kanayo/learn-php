@@ -79,11 +79,19 @@ function createAdmin($request_values){
 	// register user if there are no errors in the form
 	if (count($errors) == 0) {
 		$password = md5($password);//encrypt the password before saving in the database
-		$query = "INSERT INTO users (username, email, role, password, created_at, updated_at) 
-				  VALUES('$username', '$email', '$role', '$password', now(), now())";
+		$query = "INSERT INTO users (username, email, role, password, created_at, updated_at) VALUES('$username', '$email', '$role', '$password', now(), now())";
 		mysqli_query($conn, $query);
 
+		$insert_id = mysqli_insert_id($conn);
+
+		$sql = "SELECT * FROM `users` WHERE `id`='$insert_id' LIMIT 1";
+		$result = mysqli_query($conn, $sql);
+
+		$user = mysqli_fetch_assoc($result);
+
 		$_SESSION['message'] = "Admin user created successfully";
+		$_SESSION['user_id'] = $user['id'];
+		echo ($_SESSION['user_id']);
 		header('location: users.php');
 		exit(0);
 	}
