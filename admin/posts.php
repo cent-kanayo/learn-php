@@ -19,7 +19,7 @@
         <!-- Display records from DB-->
         <div class="table-div" style="width: 80%;">
             <!-- Display notification message -->
-            <?php include(ROOT_PATH . '/includes/messages.php') ?>
+            <?php include(ROOT_PATH . '/admin/includes/messages.php') ?>
 
             <?php if (empty($posts)): ?>
             <h1 style="text-align: center; margin-top: 20px;">No posts in the database.</h1>
@@ -39,13 +39,15 @@
                 </thead>
                 <tbody>
                     <?php foreach ($posts as $key => $post): ?>
+
+
                     <tr>
                         <td><?php echo $key + 1; ?></td>
-                        <td><?php echo $post['author']; ?></td>
+                        <td><?php echo $post['title']; ?></td>
                         <td>
                             <a target="_blank"
                                 href="<?php echo BASE_URL . '/single_post.php?post-slug=' . $post['slug'] ?>">
-                                <?php echo $post['title']; ?>
+                                <?php echo $post['author']; ?>
                             </a>
                         </td>
                         <td><?php echo $post['views']; ?></td>
